@@ -1,5 +1,8 @@
 # terraform-az
 
+- [VNet](#azure-Virtual-Network-(VNet)-Terraform-Module)
+- [Application Service](#App-Service-Creation-Module)
+
 
 # Azure Virtual Network (VNet) Terraform Module
 
@@ -91,3 +94,24 @@ module "vnet" {
   ]
 }
 ```
+
+# App-Service Creation Module
+
+```hcl
+module app_service {
+  source = "../../modules/service/app_service"
+  name = "sb-hw"
+  rg_location = azurerm_resource_group.this.location
+  rg_name = azurerm_resource_group.this.name
+  sku_size = "1"
+  sku_tier = "B"
+  always_on = true
+  application_stack = {
+    java_version        = "17"
+    java_server         = "JAVA"
+    java_server_version = "17"
+  }
+}
+```
+
+
